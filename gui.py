@@ -328,22 +328,21 @@ class App(QWidget):
     def _ledOnClick(self, selected_led):
         if selected_led == "led1":
             print("updating port 2, 0, 1")
-            self._set_rgb(self.sliders, self.converted_color, 2, 0, 1)
+            self._set_rgb(self.sliders, self.converted_color, 0, 2, 1)
         elif selected_led == "led2":
             print("updating port 5, 4, 3")
-            self._set_rgb(self.sliders, self.converted_color, 5, 4, 3)
+            self._set_rgb(self.sliders, self.converted_color, 3, 5, 4)
         elif selected_led == "signal":
             print("updating port 8, 9, 10")
-            self._set_rgb(self.sliders, self.converted_color, 8, 9, 10)
+            self._set_rgb(self.sliders, self.converted_color, 10, 8, 9)
         elif selected_led == "led3":
             print("updating port 14, 13, 15")
-            self._set_rgb(self.sliders, self.converted_color, 14, 13, 15)
+            self._set_rgb(self.sliders, self.converted_color, 13, 15, 14)
         elif selected_led == "all":
-            print("updating all port")
-            self._set_rgb(self.sliders, self.converted_color, 2, 0, 1)
-            self._set_rgb(self.sliders, self.converted_color, 5, 4, 3)
-            self._set_rgb(self.sliders, self.converted_color, 8, 9, 10)
-            self._set_rgb(self.sliders, self.converted_color, 14, 13, 15)
+            self._set_rgb(self.sliders, self.converted_color, 0, 2, 1)
+            self._set_rgb(self.sliders, self.converted_color, 3, 5, 4)
+            self._set_rgb(self.sliders, self.converted_color, 10, 8, 9)
+            self._set_rgb(self.sliders, self.converted_color, 13, 15, 14)
 
     def _onColorChange(self):
         self.curr_color.setText(self.colorCircle.selected_color)
