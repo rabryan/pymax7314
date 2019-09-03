@@ -10,6 +10,11 @@ from functools import partial
 import time
 import numpy as np
 
+LED1_PORTS = [0,2,1] #rgb
+LED2_PORTS = [3,5,4] #rgb
+SIG_LED_PORTS= [10,8,9] #rgb
+LED3_PORTS = [13,15,14] #rgb
+
 class ColorCircle(QtWidgets.QWidget):
     colorChanged = pyqtSignal()
 
@@ -144,10 +149,10 @@ class App(QWidget):
 
         controlsLayout = QGridLayout()
 
-        controlsLayout.addWidget(self._create_led_group("led1",2,0,1), 0,0,1,4)
-        controlsLayout.addWidget(self._create_led_group("led2",5,4,3), 0,4,1,4)
-        controlsLayout.addWidget(self._create_led_group("signal",8,9,10),1,0,1,4)
-        controlsLayout.addWidget(self._create_led_group("led3",14,13,15),1,4,1,4)
+        controlsLayout.addWidget(self._create_led_group("led1",*LED1_PORTS), 0,0,1,4)
+        controlsLayout.addWidget(self._create_led_group("led2",*LED2_PORTS), 0,4,1,4)
+        controlsLayout.addWidget(self._create_led_group("signal",*SIG_LED_PORTS),1,0,1,4)
+        controlsLayout.addWidget(self._create_led_group("led3",*LED3_PORTS),1,4,1,4)
 
         controlsLayout.addWidget(QLabel("Global"), 2, 0, 1, 2)
         self.slider_master_int = IntensitySlider(Qt.Horizontal)
@@ -328,21 +333,21 @@ class App(QWidget):
     def _ledOnClick(self, selected_led):
         if selected_led == "led1":
             print("updating port 2, 0, 1")
-            self._set_rgb(self.sliders, self.converted_color, 0, 2, 1)
+            self._set_rgb(self.sliders, self.converted_color, *LED1_PORTS)
         elif selected_led == "led2":
             print("updating port 5, 4, 3")
-            self._set_rgb(self.sliders, self.converted_color, 3, 5, 4)
+            self._set_rgb(self.sliders, self.converted_color, *LED2_PORTS)
         elif selected_led == "signal":
             print("updating port 8, 9, 10")
-            self._set_rgb(self.sliders, self.converted_color, 10, 8, 9)
+            self._set_rgb(self.sliders, self.converted_color, *SIG_LED_PORTS)
         elif selected_led == "led3":
             print("updating port 14, 13, 15")
-            self._set_rgb(self.sliders, self.converted_color, 13, 15, 14)
+            self._set_rgb(self.sliders, self.converted_color, *LED3_PORTS)
         elif selected_led == "all":
-            self._set_rgb(self.sliders, self.converted_color, 0, 2, 1)
-            self._set_rgb(self.sliders, self.converted_color, 3, 5, 4)
-            self._set_rgb(self.sliders, self.converted_color, 10, 8, 9)
-            self._set_rgb(self.sliders, self.converted_color, 13, 15, 14)
+            self._set_rgb(self.sliders, self.converted_color, *LED1_PORTS)
+            self._set_rgb(self.sliders, self.converted_color, *LED2_PORTS)
+            self._set_rgb(self.sliders, self.converted_color, *LED3_PORTS)
+            self._set_rgb(self.sliders, self.converted_color, *SIG_LED_PORTS)
 
     def _onColorChange(self):
         self.curr_color.setText(self.colorCircle.selected_color)
